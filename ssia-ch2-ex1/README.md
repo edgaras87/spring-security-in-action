@@ -63,3 +63,22 @@ Content-Length: 5
 Date: Wed, 27 Apr 2022 17:02:09 GMT
 
 Hello
+
+## Define in memory custom user 
+
+### testing new user
+
+$ curl -i -s -u jon:pass http://localhost:8080/home
+HTTP/1.1 200
+Set-Cookie: JSESSIONID=EA496EF1F1468C50155B1BE746BA8E30; Path=/; HttpOnly
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+X-Frame-Options: DENY
+Content-Type: text/plain;charset=UTF-8
+Content-Length: 5
+Date: Wed, 27 Apr 2022 17:53:11 GMT
+
+Hello

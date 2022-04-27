@@ -1,5 +1,6 @@
-server:
-  ssl:
-    key-store-type: PKCS12
-    key-store: classpath:certificate.p12
-    key-store-password: asdasd
+# === HTTPS ===
+#server:
+#  ssl:
+#    key-store-type: PKCS12
+#    key-store: classpath:certificate.p12
+#    key-store-password: asdasd
