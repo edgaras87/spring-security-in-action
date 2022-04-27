@@ -23,5 +23,5 @@ $ echo -n user:e829ed45-debb-4fda-a841-5553b9b2fb19 | base64
 	dXNlcjplODI5ZWQ0NS1kZWJiLTRmZGEtYTg0MS01NTUzYjliMmZiMTk=
 
 $ curl -s -H "Authorization: Basic dXNlcjplODI5ZWQ0NS1kZWJiLTRmZGEtYTg0MS01NTUzYjliMmZiMTk=" http://localhost:8080/home
-
+	
 	Hello
