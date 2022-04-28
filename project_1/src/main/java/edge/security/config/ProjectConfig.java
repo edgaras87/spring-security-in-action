@@ -25,7 +25,8 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(authenticationProvider);
 	}
 
-	@Override
+	// Have been moved to other configuration class
+	/*@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.httpBasic(); // by default, app uses HTTP Basic authentication
@@ -36,9 +37,10 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 					
 					
 		;
-	}
+	}*/
 
 	// This is replaced by custom AuthenticationProvider
+	// Have been moved to other configuration class
 	/*@Bean
 	public UserDetailsService userDetailsService() {
 
