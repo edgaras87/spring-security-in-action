@@ -1,5 +1,7 @@
 package edge.security.config;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.User;
@@ -12,15 +14,14 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import edge.security.model.DummyUser;
 import edge.security.model.SecurityUser;
 import edge.security.model.SimpleUser;
+import edge.security.service.InMemoryUserDetailService;
 
 @Configuration
 public class UserManagementConfig {
-	
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 
-		InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager();
-		
 		UserDetails user = User.withUsername("jon").password("pass").authorities("read").build();
 		
 		User.UserBuilder builder1 = User.withUsername("bill"); 
@@ -36,7 +37,10 @@ public class UserManagementConfig {
 								.username("bill2")
 								.disabled(false)
 								.build();
-
+		
+		UserDetails user3 = new DummyUser();
+		UserDetails user4 = new SimpleUser("simple", "simplepass");
+		UserDetails user5 = new SecurityUser(new edge.security.model.User(5, "bob", encoder().encode("ppp"), "READ"));
 		/**
 		 * Users credentials
 		 * jon    - pass
@@ -45,20 +49,14 @@ public class UserManagementConfig {
 		 * dummy  - dum
 		 * simple - simplepass
 		 */
-		userDetailsService.createUser(user);
-		userDetailsService.createUser(user1);
-		userDetailsService.createUser(user2);
-		userDetailsService.createUser(new DummyUser());
-		userDetailsService.createUser(new SimpleUser("simple", "simplepass"));
-		userDetailsService.createUser(new SecurityUser(new edge.security.model.User(5, "bob", encoder().encode("ppp"), "READ")));
+		List<UserDetails> users = List.of(user, user1, user2, user3, user4, user5);
 		
-		return userDetailsService;
+		return new InMemoryUserDetailService(users);
 	}
-	
+
 	@Bean
 	public PasswordEncoder encoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
-	
-	
+
 }
