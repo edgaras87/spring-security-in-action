@@ -64,7 +64,14 @@ public class UserManagementConfig {
 	
 	@Bean
 	public UserDetailsService userDetailsService(DataSource dataSource) {
-		return new JdbcUserDetailsManager(dataSource);
+		String usersByUsernameQuery = "select username, password, enabled from user_management_security.users where username = ?";
+		String authsByUserQuery = "select username, authority from user_management_security.authorities where username = ?";
+		
+		var userDetailsManager = new JdbcUserDetailsManager(dataSource);
+		userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);
+		userDetailsManager.setAuthoritiesByUsernameQuery(authsByUserQuery);
+		
+		return userDetailsManager;
 	}
 
 }
