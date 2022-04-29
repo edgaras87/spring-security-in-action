@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import edge.security.model.DummyUser;
+import edge.security.model.SecurityUser;
 import edge.security.model.SimpleUser;
 
 @Configuration
@@ -49,7 +50,7 @@ public class UserManagementConfig {
 		userDetailsService.createUser(user2);
 		userDetailsService.createUser(new DummyUser());
 		userDetailsService.createUser(new SimpleUser("simple", "simplepass"));
-		
+		userDetailsService.createUser(new SecurityUser(new edge.security.model.User(5, "bob", encoder().encode("ppp"), "READ")));
 		
 		return userDetailsService;
 	}
