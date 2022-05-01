@@ -1,0 +1,21 @@
+spring:
+  # -- MySQL connection properties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/user_management_security
+    
+  # -- Sql configuration --
+  jpa:
+    properties:
+      hibernate:
+        # -- Hibernate SQL dialect --
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    # -- Without this, initial sql files (schema.sql, data.sql) won't be executed --
+  sql:
+    init:
+      mode: always
+      # -- database initialization scripts to run when the application starts --
+      #data-locations: taco-schema.sql, order-schema.sql, ingredient-schema.sql, user-schema.sql,ingredient.sql
