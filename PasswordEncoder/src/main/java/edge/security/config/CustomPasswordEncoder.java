@@ -19,16 +19,22 @@ public class CustomPasswordEncoder implements PasswordEncoder {
 
 	@Override
 	public boolean matches(CharSequence rawPassword, String encodedPassword) {
+		
 		System.out.println("decoding:");
 		System.out.println(" === encoding entered password === ");
 		String encodedRaw = encode(rawPassword);
 		System.out.println(" ================================= ");
 		System.out.println("\t      encoded password: " + encodedPassword.toString());
 		System.out.println("\t encoded(raw) password: " + encodedRaw);
+		/**
+		 *  There is no need to check this, encodedPassword is already 
+		 *  coming truncated by DelegatingPasswordEncoder.
+		 */
+//		if (encodedPassword.startsWith("{my}"))
+//			encodedRaw = "{my}" + encodedRaw; 
+		
 		return encodedRaw.equals(encodedPassword);
 	}
-	
-	
 	
 	// No encoding at all
 	private String plainTextPassword(String input) {
