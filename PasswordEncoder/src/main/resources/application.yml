@@ -1,0 +1,32 @@
+spring:
+  # -- MySQL connection properties
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/password_encoding
+    #url: jdbc:mysql://localhost:3306/tacocloud_jpa?createDatabaseIfNotExist=true
+    # (deprecated) schema: taco-schema.sql, order-schema.sql, ingredient-schema.sql, user-schema.sql
+    # (deprecated) data: ingredient.sql
+    # (other data source will be ignored) jndi-name: java:/comp/env/jdbc/tacoCloudDS 
+
+  # -- Sql configuration --
+  jpa:
+    properties:
+      hibernate:
+        # -- Hibernate SQL dialect --
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:    
+        # -- The hibernate property (create) will automatically create database tables based on the entity classes 
+        # -- when the application starts. Drop and create new tables (create, create-drop, validate, update, none)
+        # -- Only for testing purpose - comment this in production
+        # -- https://stackoverflow.com/questions/438146/what-are-the-possible-values-of-the-hibernate-hbm2ddl-auto-configuration-and-wha#:~:text=So%20the%20list%20of%20possible%20options%20are%2C,with%20the%20schema%2C%20makes%20no%20changes%20to%20the%20database
+        ddl-auto: create
+        # -- Log JPA queries (Comment this in production) --
+    show-sql: true
+    # -- Without this, initial sql files (schema.sql, data.sql) won't be executed --
+  sql:
+    init:
+      mode: always
+      # -- database initialization scripts to run when the application starts --
+      #data-locations: taco-schema.sql, order-schema.sql, ingredient-schema.sql, user-schema.sql,ingredient.sql
