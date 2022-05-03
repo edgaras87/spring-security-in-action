@@ -35,19 +35,26 @@ public class UserManagementConfig {
 									// this will not work because of user storage in database!!!
 									.accountExpired(true).disabled(true).build();
 
-		UserDetails user2 = User.withUserDetails(user1).username("bill2").disabled(false).build();
+		UserDetails user2 = User.withUserDetails(user1)
+								.username("bill2")
+								.disabled(false)
+								.build();
 
 		password = "{my}"+ encoders().get("my").encode("ppp");
 		UserDetails user3 = new SecureUser(new edge.security.modules.User(null, "bob", password, "READ"));
+		
+		password = "{myEncrypt}" + encoders().get("myEncrypt").encode("pass");
+		UserDetails user4 = User.withUsername("tom").password(password).authorities("write").build();
 		/**
 		 * Users credentials 
 		 * jon - pass 
 		 * bill - pass (account disabled) 
 		 * bill2 - pass
 		 * bob - ppp
+		 * tom - pass
 		 */
 		
-		return List.of(user, user1, user2, user3);
+		return List.of(user, user1, user2, user3, user4);
 	}
 	
 	@Bean
@@ -57,6 +64,7 @@ public class UserManagementConfig {
 		encoders.put("pbkdf2", new Pbkdf2PasswordEncoder());
 		encoders.put("noop", NoOpPasswordEncoder.getInstance());
 		encoders.put("my", new CustomPasswordEncoder());
+		encoders.put("myEncrypt", new CustomKeyPasswordEncryptor());
 		return encoders;
 	}
 	
