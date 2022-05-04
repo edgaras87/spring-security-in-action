@@ -45,5 +45,14 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 		auth.authenticationProvider(authProviderServices);
 	}
 
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.formLogin()
+				.defaultSuccessUrl("/main", true);
+		http.authorizeHttpRequests()
+				.anyRequest().authenticated();
+	}
+	
+	
 
 }
