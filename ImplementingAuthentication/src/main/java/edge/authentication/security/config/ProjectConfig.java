@@ -14,18 +14,28 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
 	
 	private AuthenticationProvider authenticationProvider;
+	private CustomAuthenticationFailureHandler authFailureHandler;
+	private CustomAuthenticationSuccessHandler authSuccessHandler;
 
-	public ProjectConfig(AuthenticationProvider authenticationProvider) {
+	public ProjectConfig(AuthenticationProvider authenticationProvider,
+			CustomAuthenticationFailureHandler authFailureHandler,
+			CustomAuthenticationSuccessHandler authSuccessHandler) {
 		this.authenticationProvider = authenticationProvider;
+		this.authFailureHandler = authFailureHandler;
+		this.authSuccessHandler = authSuccessHandler;
 	}
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic(c -> {
 				c.realmName("other");
 				c.authenticationEntryPoint(new CustomEntryPoint());		
 		});
-		
+		http.formLogin()
+			//.defaultSuccessUrl("/page", true);
+			.successHandler(authSuccessHandler)
+			.failureHandler(authFailureHandler);
+			
 		http.authorizeHttpRequests().anyRequest().authenticated();
 	}
 

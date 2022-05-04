@@ -67,6 +67,12 @@ Implements the Callable interface and represents a task that is executed on a
 different thread and that will eventually return a response. Above a normal Callable, it
 is also able to propagate a 
 
+# Form-based login authentications
+
+## AuthenticationSuccessHandler and AuthenticationFailureHandler 
+These interfaces let you implement an object through which you can apply the logic
+executed for authentication.
+
 
 
 
