@@ -54,9 +54,20 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter  {
 			.and()
 			.formLogin()
 				.defaultSuccessUrl("/home", true);
+		
+		// 3.
+		String expression = "hasAuthority('read') and !hasAuthority('write')";
+		
 		http.authorizeRequests()
 			.anyRequest()
-			.authenticated();
+			//.authenticated();
+			// 1.
+			//.hasAuthority("write");
+			// 2.
+			//.hasAnyAuthority("read","write");
+			// 3.
+			//.access("hasAuthority('write')");
+			.access(expression);
 	}
 	
 	
