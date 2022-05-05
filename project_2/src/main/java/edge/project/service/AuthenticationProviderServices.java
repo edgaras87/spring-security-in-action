@@ -2,6 +2,7 @@ package edge.project.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import edge.project.security.CustomUserDetails;
 
+@Profile("orginal")
 @Service
 public class AuthenticationProviderServices 
 		implements AuthenticationProvider {
@@ -49,7 +51,7 @@ public class AuthenticationProviderServices
 		String password = authentication.getCredentials().toString();
 		
 		CustomUserDetails user = userDetailsService.loadUserByUsername(username);
-		
+		System.out.println(user);
 		switch (user.getUser().getAlgorithm()) {
 			case BCRYPT:
 				return checkPassword(user, password, bCryptPasswordEncoder);

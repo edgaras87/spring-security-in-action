@@ -1,3 +1,7 @@
+DROP TABLE `project2`.`user`;
+DROP TABLE `project2`.`authority`;
+DROP TABLE `project2`.`product`;
+
 CREATE TABLE IF NOT EXISTS `project2`.`user` (
  `id` INT NOT NULL AUTO_INCREMENT,
  `username` VARCHAR(45) NOT NULL,

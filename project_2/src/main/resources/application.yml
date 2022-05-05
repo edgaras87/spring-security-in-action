@@ -1,4 +1,4 @@
-spring:
+spring:      
   # -- MySQL connection properties
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -23,13 +23,33 @@ spring:
         # -- https://stackoverflow.com/questions/438146/what-are-the-possible-values-of-the-hibernate-hbm2ddl-auto-configuration-and-wha#:~:text=So%20the%20list%20of%20possible%20options%20are%2C,with%20the%20schema%2C%20makes%20no%20changes%20to%20the%20database
         ddl-auto: none
         # -- Log JPA queries (Comment this in production) --
+    #defer-datasource-initialization: true
     show-sql: true
     # -- Without this, initial sql files (schema.sql, data.sql) won't be executed --
   sql:
     init:
       mode: always
-      # -- database initialization scripts to run when the application starts --
-      #data-locations: taco-schema.sql, order-schema.sql, ingredient-schema.sql, user-schema.sql,ingredient.sql
+      
+      data-locations: classpath:schema.sql, classpath:data_update.sql
+ 
+ 
+  profiles:
+    active: orginal
+    
+---
+spring:
+  profiles: orginal 
   
-
-
+  sql:
+    init:
+      mode: always    
+      data-locations: classpath:schema.sql, classpath:data.sql 
+  
+---
+spring:
+  profiles: update 
+         
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:schema.sql, classpath:data_update.sql
