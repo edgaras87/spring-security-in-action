@@ -24,12 +24,12 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter  {
 		
 		UserDetails user1 = User.withUsername("jon")
 								.password("pass")
-								.authorities("read")
+								.roles("ADMIN")
 								.passwordEncoder(p -> encoder().encode(p))
 								.build();
 		UserDetails user2 = User.withUsername("john")
 								.password(encoder().encode("12345"))
-								.authorities("write")
+								.roles("MANAGER")
 								.build();
 
 		manager.createUser(user1);
@@ -56,17 +56,17 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter  {
 				.defaultSuccessUrl("/home", true);
 		
 		// 3.
-		String expression = "hasAuthority('read') and !hasAuthority('write')";
+		String expression = "hasRole('ADMIN') and !hasRole('MANAGER')";
 		
 		http.authorizeRequests()
 			.anyRequest()
 			//.authenticated();
 			// 1.
-			//.hasAuthority("write");
+			//.hasRole("ADMIN");
 			// 2.
-			//.hasAnyAuthority("read","write");
+			//.hasAnyRole("MANAGER");
 			// 3.
-			//.access("hasAuthority('write')");
+			//.access("hasRole('MANAGER')");
 			.access(expression);
 	}
 	
