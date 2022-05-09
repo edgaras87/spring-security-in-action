@@ -1,1 +1,6 @@
-
+spring:
+  datasource:
+    url: jdbc:mysql://localhost/csrf
+    username: root
+    password: root
+    initialization-mode: always

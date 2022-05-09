@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
@@ -34,8 +35,13 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/main", true);
 		http.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class)
 			.authorizeRequests()
-				.anyRequest().authenticated();
+				.anyRequest()
+					//.authenticated();
+					.permitAll();
 		http.csrf(c -> {
+			
+			c.csrfTokenRepository(customTokenRepository());
+			
 			// 1. antMatcher
 			c.ignoringAntMatchers("/ciao");
 			
@@ -54,6 +60,11 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 	@Bean
 	public PasswordEncoder encoder() {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+	}
+	
+	@Bean
+	public CsrfTokenRepository customTokenRepository() {
+		return new CustomCsrfTokenRepository();
 	}
 	
 }

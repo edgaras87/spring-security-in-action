@@ -26,3 +26,10 @@ approach for these cases as well.
 
 ### never use HTTP GET with mutating operations!
 
+## Perform post with csrf token from database
+generates and saves token to database with identifier="X-IDENTIFIER"
+$ curl -i -s -H "X-IDENTIFIER:pass"  http://localhost:8080/home 
+using identifier and token porforming post requests 
+$ curl -i -s -H "X-IDENTIFIER:pass" -H "X-CSRF-TOKEN:c83a6767-a7fe-41fc-8684-35af5169c0a0" -XPOST  http://localhost:8080/home
+
+
