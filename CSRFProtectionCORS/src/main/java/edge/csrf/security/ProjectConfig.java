@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CsrfFilter;
+
+import edge.csrf.security.filter.CsrfTokenLogger;
 
 @Configuration
 public class ProjectConfig extends WebSecurityConfigurerAdapter {
@@ -21,8 +24,13 @@ public class ProjectConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic();
-		http.authorizeRequests().anyRequest().authenticated();
+		http.httpBasic()
+			.and()
+			.formLogin()
+				.defaultSuccessUrl("/main", true);
+		http.addFilterAfter(new CsrfTokenLogger(), CsrfFilter.class)
+			.authorizeRequests()
+				.anyRequest().authenticated();
 		//http.csrf().disable();
 	}
 
