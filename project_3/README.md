@@ -45,6 +45,19 @@ JSON representations of the data stored in the token. To make these easy to send
 Base64 encoded. The last part of the token is the signature. The parts are concatenated with dots.
 More about JWT https://github.com/jwtk/jjwt#overview
 
+## Testing authentication server
+
+### add user
+$ curl -XPOST -H "content-type: application/json" -d "{\"username\":\"den\", \"password\":\"pas\"}" http://localhost:8080/user/add
+
+### authenticate user by getting otp(one-time pass)
+$ curl -XPOST -H "content-type: application/json" -d "{\"username\":\"den\", \"password\":\"pas\"}" http://localhost:8080/user/auth
+
+### check otp
+$ curl -s -v -XPOST -H "content-type: application/json" -d "{\"username\":\"den\", \"code\":\"8680\"}" http://localhost:8080/otp/check
+
+
+
 
 
 

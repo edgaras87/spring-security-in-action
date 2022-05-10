@@ -50,16 +50,20 @@ public class UserService {
 	private void renewOtp(User user) {
 		String code = GenerateCodeUtil.generateCode();
 		Optional<Otp> userOtp = otpRepository.findOtpByUsername(user.getUsername());
+		Otp otp;
 		
 		if (userOtp.isPresent()) {
-			Otp otp = userOtp.get();
+			otp = userOtp.get();
+			System.out.println(otp.getCode());
+			System.out.println(code);
 			otp.setCode(code);
 		} else {
-			Otp otp = new Otp();
+			otp = new Otp();
 			otp.setUsername(user.getUsername());
 			otp.setCode(code);
-			otpRepository.save(otp);
+			
 		}
+		otpRepository.save(otp);
 	}
 	
 	public boolean check(Otp otpToValidate) {
