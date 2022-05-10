@@ -2,7 +2,7 @@
 --DROP TABLE IF EXISTS `project3_auth_server`.`otp`;
 
 CREATE TABLE IF NOT EXISTS `project3_auth_server`.`user` (
- `username` VARCHAR(45) NULL,
+ `username` VARCHAR(45) NOT NULL,
  `password` TEXT NULL,
  PRIMARY KEY (`username`));
  
