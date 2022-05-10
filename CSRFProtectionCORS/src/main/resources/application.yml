@@ -1,0 +1,21 @@
+spring:
+  profiles:
+    active: CORS
+    
+---
+spring:
+  profiles: CSRF 
+  
+  datasource:
+    url: jdbc:mysql://localhost/csrf
+    username: root
+    password: root
+    initialization-mode: always
+  
+---
+spring:
+  profiles: CORS 
+  
+  sql:
+    init:
+      mode: never
