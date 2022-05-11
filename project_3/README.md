@@ -39,11 +39,18 @@ allowed to do something, like opening a particular door.
  -Tokens can also store details like user authorities that the client needs to send in the request.
  -Tokens help you delegate the authentication responsibility to another component in the system.
 
-##  JSON Web Token (JWT)
+###  JSON Web Token (JWT)
 A JWT is composed of three parts: the header, the body, and the signature. The header and the body are
 JSON representations of the data stored in the token. To make these easy to send in a request header, they are
 Base64 encoded. The last part of the token is the signature. The parts are concatenated with dots.
 More about JWT https://github.com/jwtk/jjwt#overview
+
+
+### JWS (JSON Web Token Signed)
+A signed JWT is also called JWS (JSON Web Token Signed).
+
+### JWE (JSON Web Token Encrypted) 
+An Encrypted JWT is also called JWE (JSON Web Token Encrypted).
 
 ## Testing authentication server
 
@@ -55,6 +62,24 @@ $ curl -XPOST -H "content-type: application/json" -d "{\"username\":\"den\", \"p
 
 ### check otp
 $ curl -s -v -XPOST -H "content-type: application/json" -d "{\"username\":\"den\", \"code\":\"8680\"}" http://localhost:8080/otp/check
+
+# Business logic server
+
+## authentication process
+If Authentication instance is authenticated it means that the authentication process ends. 
+If the Authentication object is not set as authenticated, and no exception is thrown during the process, 
+theAuthenticationManager tries to find a properAuthenticationProvider object to authenticate the request.
+
+# testing project
+$ curl -s -v -H "username:den" -H "password:pas" http://localhost:9090/login
+username: den, code: 9363
+
+$ curl -s -v -H "username:den" -H "code:9363" http://localhost:9090/login
+Authorization: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRlbiJ9.m3xHXJs7XEPiVNo6bN84gcjRLgIvBfLzwJGLufsInFg
+
+$ curl -s -v -XGET -H  "Authorization: eyJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImRlbiJ9.m3xHXJs7XEPiVNo6bN84gcjRLgIvBfLzwJGLufsInFg" http://localhost:9090/test
+get test
+
 
 
 
