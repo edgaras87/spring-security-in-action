@@ -1,1 +1,15 @@
+## 3. using properties file 
+#spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            client-id: e9bf209b3f9c0f05083d
+#            client-secret: c733619993f1b67d54b6251a4e42ab6a75882396
 
+## details for the authorization with other provider (not the common ones)
+#        provider:
+#          myprovider:
+#            authorization-uri: <some uri>
+#            token-uri: <some uri>

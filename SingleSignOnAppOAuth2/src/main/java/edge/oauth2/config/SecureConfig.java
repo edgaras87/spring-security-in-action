@@ -1,20 +1,36 @@
 package edge.oauth2.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
 
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
+import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
+import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 
 @Configuration
 public class SecureConfig extends WebSecurityConfigurerAdapter {
 
+	// 1. using ClientRegistrationRepository as a bean 
+	//@Bean public
+	private ClientRegistrationRepository clienRepository() {
+		var c = ClientRegistrationUsingClientRegistrationInterface();
+		//var c = ClientRegistrationUsingCommonOAuth2Provider();
+		return new InMemoryClientRegistrationRepository(c);
+		
+	}
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		
-		http.oauth2Login();
+		// 2. using Customizer
+		http.oauth2Login(
+				c -> {
+					c.clientRegistrationRepository(clienRepository());
+				}
+			);
 		
 		http.authorizeRequests()
 			.anyRequest().authenticated();
