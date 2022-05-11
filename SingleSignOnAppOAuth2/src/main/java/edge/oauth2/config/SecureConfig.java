@@ -17,8 +17,8 @@ public class SecureConfig extends WebSecurityConfigurerAdapter {
 	// 1. using ClientRegistrationRepository as a bean 
 	//@Bean public
 	private ClientRegistrationRepository clienRepository() {
-		var c = ClientRegistrationUsingClientRegistrationInterface();
-		//var c = ClientRegistrationUsingCommonOAuth2Provider();
+		//var c = ClientRegistrationUsingClientRegistrationInterface();
+		var c = ClientRegistrationUsingCommonOAuth2Provider();
 		return new InMemoryClientRegistrationRepository(c);
 		
 	}
