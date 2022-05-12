@@ -1,1 +1,26 @@
+server:
+  port: 9090
+
+spring:
+  profiles:
+    active: INTROSPECTION
+    
+---
+spring:
+  profiles: CLOUD 
+  
+security:
+  oauth2:
+    resource:
+      # endpoint of the authorization server for token check
+      token-infouri: http://localhost:8080/oauth/check_token
+    client:
+      # credentials of this resource server for authentication server
+      client-id: resourceserver1
+      client-secret: resourceserversecret1
+  
+---
+spring:
+  profiles: INTROSPECTION 
+
 
