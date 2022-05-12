@@ -49,14 +49,32 @@ public class AuthServerConfig
 //		// Configures ClientDetailsService for use by our authorization server
 //		clients.withClientDetails(service);
 		
-		// 2.
+//		// 2.
+//		clients.inMemory()
+//				.withClient("client")
+//				.secret("secret")
+//				.authorizedGrantTypes("password", "refresh_token")
+//				.scopes("read");
+		
+		// Using the password grant type (with refresh token grant type)
 		clients.inMemory()
-				.withClient("client")
-				.secret("secret")
-				.authorizedGrantTypes("password", "refresh_token")
-				.scopes("read");
-		
-		
+			   .withClient("client1")
+			   .secret("secret1")
+			   .authorizedGrantTypes("password", "refresh_token")
+			   .scopes("read")
+		// Using the authorization code grant type
+			   .and()
+			   .withClient("client2")
+			   .secret("secret2")
+			   .authorizedGrantTypes("authorization_code")
+			   .scopes("read")
+			   .redirectUris("http://localhost:9090/home")
+		// Using the client credentials grant type
+			   .and()
+			   .withClient("client3")
+			   .secret("secret3")
+			   .authorizedGrantTypes("client_credentials")
+			   .scopes("info");
 	}	
 	
 }
