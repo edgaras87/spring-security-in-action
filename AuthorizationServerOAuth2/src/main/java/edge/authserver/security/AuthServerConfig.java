@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * @EnableAuthorizationServer - Instruct Spring Boot to enable the configuration 
@@ -74,7 +74,23 @@ public class AuthServerConfig
 			   .withClient("client3")
 			   .secret("secret3")
 			   .authorizedGrantTypes("client_credentials")
-			   .scopes("info");
+			   .scopes("info")
+
+			   
+		// client registration for the resource server itself.
+		// or in other words
+		// Adding credentials for the resource server
+		// don’t need any grant type or scope for the resource server to call the check_token endpoint
+			   .and()
+			   .withClient("resourceserver1")
+			   .secret("resourceserversecret1");
+	}
+
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		// Specifies the condition for which we can call the check_token endpoint
+		// Enabling authenticated access to the check_token endpoint
+		security.checkTokenAccess("isAuthenticated()");
 	}	
 	
 }
