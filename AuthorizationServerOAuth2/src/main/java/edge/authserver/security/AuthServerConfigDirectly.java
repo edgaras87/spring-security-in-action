@@ -2,12 +2,13 @@ package edge.authserver.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 
 /**
  * @EnableAuthorizationServer - Instruct Spring Boot to enable the configuration 
@@ -15,9 +16,10 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
  * by extending the AuthorizationServerConfigurerAdapter class and overriding 
  * specific methods.
  */
+@Profile("directly")
 @Configuration
 @EnableAuthorizationServer
-public class AuthServerConfig 
+public class AuthServerConfigDirectly 
 		extends AuthorizationServerConfigurerAdapter {
 
 	@Autowired
@@ -74,7 +76,23 @@ public class AuthServerConfig
 			   .withClient("client3")
 			   .secret("secret3")
 			   .authorizedGrantTypes("client_credentials")
-			   .scopes("info");
+			   .scopes("info")
+
+			   
+		// client registration for the resource server itself.
+		// or in other words
+		// Adding credentials for the resource server
+		// don’t need any grant type or scope for the resource server to call the check_token endpoint
+			   .and()
+			   .withClient("resourceserver1")
+			   .secret("resourceserversecret1");
+	}
+
+	@Override
+	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+		// Specifies the condition for which we can call the check_token endpoint
+		// Enabling authenticated access to the check_token endpoint
+		security.checkTokenAccess("isAuthenticated()");
 	}	
 	
 }
