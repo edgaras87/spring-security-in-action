@@ -1,1 +1,19 @@
-
+spring:
+  profiles:
+    active: blackboarding
+    
+---
+spring:
+  profiles: directly 
+  
+  datasource:      
+      initialization-mode: never 
+---
+spring:
+  profiles: blackboarding 
+  
+  datasource:
+    url: jdbc:mysql://localhost/blackboarding?useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: root
+    initialization-mode: always

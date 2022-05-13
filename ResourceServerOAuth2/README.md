@@ -17,6 +17,41 @@ having a new, as yet unknown token, the resource server calls the authorization
 server to validate the token. These calls can put an unnecessary load on the
 authorization server.
 
+## blackboarding  architectural style
+authorization server and the resource server use a shared database.
+
+To implement token management with blackboarding, Spring Security offers 
+the JdbcTokenStore implementation. 
+
+
+### TokenStore
+The contract representing the object that manages tokens in Spring Security, 
+both on the authorization server as well as for the resource server, is the TokenStore.
+
+Spring Security offers various implementations for the TokenStore contract, 
+and in most cases, you won’t need to write your own implementation.
+
+### InMemoryTokenStore
+a default token store provided by Spring Security.
+
+### JdbcTokenStore
+this token store works with a database directly via JDBC. It works similarly to 
+the JdbcUserDetailsManager but instead of managing users, the JdbcTokenStore manages
+tokens.
+
+JdbcTokenStore expects you to have two tables in the
+database. It uses one table to store access tokens (the name
+for this table should be oauth_access _token) and one table
+to store refresh tokens (the name for this table should be
+oauth_refresh_token). The table used to store tokens persists
+the refresh tokens.
+
+you could choose to use TokenStore just to persist tokens and continue using 
+the /oauth/check_token endpoint. You would choose to do so if you don’t want 
+to use a shared database, but you need
+to persist tokens 
+
+
 ## Testing Resource Server
 
 ### basic credentials encoding

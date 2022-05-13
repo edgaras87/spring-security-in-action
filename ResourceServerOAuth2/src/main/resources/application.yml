@@ -3,9 +3,10 @@ server:
 
 spring:
   profiles:
-    active: INTROSPECTION
+    active: BLACKBOARDING
     
 ---
+# 1.1 directly architectural style
 spring:
   profiles: CLOUD 
   
@@ -20,7 +21,17 @@ security:
       client-secret: resourceserversecret1
   
 ---
+# 1.2 directly architectural style
 spring:
   profiles: INTROSPECTION 
+ 
+---
+# 2. blackboarding architectural style
+spring:
+  profiles: BLACKBOARDING 
 
+  datasource:
+    url: jdbc:mysql://localhost/blackboarding
+    username: root
+    password: root
 
