@@ -1,0 +1,10 @@
+server:
+  port: 9090
+security:
+  oauth2:
+    resource:
+      jwt:
+        keyuri: http://localhost:8080/oauth/token_key
+    client:
+      client-id: resourceserver1
+      client-secret: resourceserversecret1
