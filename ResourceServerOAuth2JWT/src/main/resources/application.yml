@@ -1,2 +1,20 @@
 server:
   port: 9090
+
+jwt:
+  symmetric:
+    key: ymLTU8rq83j4fmJZj60wh4OrMNuntIj4fmJ
+  asymmetric:
+    publicKey: -----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzGJtf53yPPCHZbjImfcD8EVexa07r2MNMPgHU+VBfmsX0w+AfDx5MmnQGypzRR0CyRyNKPWhafW0Sc2SGUu5QwLrPJIcY3VMzMahqBdWJjFImvJljoFl8h0alwK+VSq3iRPwM82ccpOqOhleR2YqR8zdQDBZ4fno2lyNmBpPoiWSitrkQxDY8UMnnO9Prqc/nAVmaNwA9rBhWY8J8syPDKQhsq1VeutmAWFPjyjUrrKHUPMiOXcm9XAx1cx5+5F4RcBRqc2mTZEQrJYGKYZd6LM1XHWfczjUdtfsp3Yx6o9J+pOKAVTn4RIVKWdLl5DnhWpu9p4GbCOE3/ows8dirwIDAQAB-----END PUBLIC KEY-----
+
+spring:
+  profiles:
+    active: symmetric
+    
+---
+spring:
+  profiles: symmetric 
+
+---
+spring:
+  profiles: asymmetric 
