@@ -18,7 +18,7 @@ import java.security.interfaces.RSAPublicKey;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
-@Configuration
+//@Configuration
 public class ResourceServerConfigMigration extends WebSecurityConfigurerAdapter {
 
 	@Value("${jwt.symmetric.key}")

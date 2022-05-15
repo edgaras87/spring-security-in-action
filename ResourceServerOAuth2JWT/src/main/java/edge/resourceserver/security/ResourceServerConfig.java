@@ -13,8 +13,8 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-//@Configuration
-//@EnableResourceServer
+@Configuration
+@EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	
 	@Value("${jwt.symmetric.key}")
@@ -48,7 +48,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Profile("symmetric")
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverterSymmetric() {
-        var converter = new JwtAccessTokenConverter();
+        //var converter = new JwtAccessTokenConverter();
+    	var converter = new AdditionalClaimsAccessTokenConverter();
         converter.setSigningKey(jwtSymmetricKey);
         return converter;
     }
@@ -56,7 +57,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Profile("asymmetric")
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverterAsymmetric() {
-        var converter = new JwtAccessTokenConverter();
+        //var converter = new JwtAccessTokenConverter();
+    	var converter = new AdditionalClaimsAccessTokenConverter();
         converter.setVerifierKey(publicAsymmetricKey);
         return converter;
     }
