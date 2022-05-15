@@ -1,0 +1,19 @@
+jwt:
+  symmetric:
+    key: ymLTU8rq83j4fmJZj60wh4OrMNuntIj4fmJ
+  asymmetric:
+    password: keypass
+    privateKey: jwtkeys.jks
+    alias: edge
+
+spring:
+  profiles:
+    active: asymmetric
+    
+---
+spring:
+  profiles: symmetric 
+
+---
+spring:
+  profiles: asymmetric 
